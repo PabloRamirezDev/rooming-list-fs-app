@@ -4,6 +4,7 @@ import { RoomingListEntity } from './infrastructure/typeorm/rooming-list.entity'
 import { ROOMING_LISTS_REPOSITORY } from './rooming-lists.constants';
 import { RoomingListsRepository } from './infrastructure/repositories/rooming-lists.repository';
 import { RoomingListsService } from './application/services/rooming-lists.service';
+import { RoomingListsController } from './rooming-lists.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([RoomingListEntity])],
@@ -14,5 +15,6 @@ import { RoomingListsService } from './application/services/rooming-lists.servic
     },
     RoomingListsService,
   ],
+  controllers: [RoomingListsController],
 })
 export class RoomingListsModule {}
