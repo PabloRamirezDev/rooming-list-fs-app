@@ -1,4 +1,6 @@
 export class Booking {
+  public bookingId: number;
+
   constructor(
     public readonly hotelId: number,
     public readonly eventId: number,

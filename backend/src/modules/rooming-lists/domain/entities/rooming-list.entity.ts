@@ -2,8 +2,9 @@ import { AgreementType } from '../enums/agreement-type.enum';
 import { RoomingListStatus } from '../enums/rooming-list-status.enum';
 
 export class RoomingList {
+  public readonly roomingListId: number;
+
   constructor(
-    public readonly roomingListId: number,
     public readonly hotelId: number,
     public readonly eventId: number,
     public readonly eventName: string,
