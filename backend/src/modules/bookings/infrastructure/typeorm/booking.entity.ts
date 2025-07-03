@@ -17,9 +17,9 @@ export class BookingEntity {
   @Column()
   guestPhoneNumber: string;
 
-  @Column()
+  @Column('date')
   checkInDate: Date;
 
-  @Column()
+  @Column('date')
   checkOutDate: Date;
 }
