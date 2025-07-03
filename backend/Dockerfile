@@ -16,7 +16,7 @@ COPY . .
 # Expose port
 EXPOSE ${BE_PORT}
 
-ENV PORT=${BE_PORT}
+ENV NODE_ENV=${NODE_ENV} PORT=${PORT} DB_URL=${DB_URL}
 
 # Default command
 CMD ["npm", "run", "start:dev"]
