@@ -19,7 +19,7 @@ export class RoomingListEntity {
   @Column()
   rfpName: string;
 
-  @Column()
+  @Column('date')
   cutOffDate: Date;
 
   @Column()
