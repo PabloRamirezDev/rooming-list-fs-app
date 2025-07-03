@@ -16,14 +16,14 @@ services:
   backend:
     build: ./backend
     container_name: rooming-list-be
-    restart: always
-    environment:
-      - DB_URL=${DB_URL}
+    env_file: ./backend/.env 
     depends_on:
       - db
     ports:
       - "${BE_PORT}:${BE_PORT}"
-    command: ["npm", "run", "start"]
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
 
 volumes:
   pgdata:
