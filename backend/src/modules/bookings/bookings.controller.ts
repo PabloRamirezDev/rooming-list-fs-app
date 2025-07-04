@@ -1,14 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { BookingsService } from './application/services/bookings.service';
 import { CreateBookingDTO } from './application/dto/create-booking.dto';
+import { ListBookingsDTO } from './application/dto/list-bookings.dto';
 
 @Controller('/bookings')
 export class BookingsController {
   constructor(private readonly bookingsService: BookingsService) {}
 
   @Get()
-  async listBookings() {
-    return this.bookingsService.getAll();
+  async listBookings(@Query() dto: ListBookingsDTO) {
+    return this.bookingsService.getAll(dto, '/bookings');
   }
 
   @Get('/:id')

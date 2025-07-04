@@ -5,9 +5,10 @@ import { ROOMING_LISTS_REPOSITORY } from './rooming-lists.constants';
 import { RoomingListsRepository } from './infrastructure/repositories/rooming-lists.repository';
 import { RoomingListsService } from './application/services/rooming-lists.service';
 import { RoomingListsController } from './rooming-lists.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RoomingListEntity])],
+  imports: [TypeOrmModule.forFeature([RoomingListEntity]), ConfigModule],
   providers: [
     {
       provide: ROOMING_LISTS_REPOSITORY,
@@ -16,5 +17,6 @@ import { RoomingListsController } from './rooming-lists.controller';
     RoomingListsService,
   ],
   controllers: [RoomingListsController],
+  exports: [RoomingListsService],
 })
 export class RoomingListsModule {}

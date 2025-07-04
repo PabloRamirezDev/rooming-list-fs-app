@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IBookingsRepository } from '../../domain/interfaces/bookings.repository.interface';
 import { BookingEntity } from '../typeorm/booking.entity';
+import { IPagination } from 'src/shared/pagination/pagination.interface';
 
 @Injectable()
 export class BookingsRepository implements IBookingsRepository {
@@ -11,8 +12,15 @@ export class BookingsRepository implements IBookingsRepository {
     private readonly bookingRepo: Repository<BookingEntity>,
   ) {}
 
-  async findAll(): Promise<BookingEntity[]> {
-    return this.bookingRepo.find();
+  async findAllAndCount(
+    options: Required<IPagination>,
+  ): Promise<[BookingEntity[], number]> {
+    const { limit, page } = options;
+
+    return this.bookingRepo.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
   }
 
   async findById(id: number): Promise<BookingEntity | null> {

@@ -3,16 +3,30 @@ import { IRoomingListsRepository } from '../../domain/interfaces/rooming-lists.r
 import { ROOMING_LISTS_REPOSITORY } from '../../rooming-lists.constants';
 import { RoomingList } from '../../domain/entities/rooming-list.entity';
 import { CreateRoomingListDTO } from '../dto/create-rooming-list.dto';
+import { ListRoomingListsDTO } from '../dto/list-rooming-lists.dto';
+import { PaginatedResult } from '../../../../shared/pagination/paginated-result.type';
+import { PaginationUtil } from '../../../../shared/pagination/pagination.util';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RoomingListsService {
   constructor(
     @Inject(ROOMING_LISTS_REPOSITORY)
     private readonly repository: IRoomingListsRepository,
+    private readonly configService: ConfigService,
   ) {}
 
-  async getAll() {
-    return this.repository.findAll();
+  async getAll(
+    dto: ListRoomingListsDTO,
+    pathname?: string,
+  ): Promise<PaginatedResult<RoomingList>> {
+    return PaginationUtil.addPagination(
+      (pagination) =>
+        this.repository.findAllAndCount({ ...dto, ...pagination }),
+      dto,
+      this.configService.get('BASE_URL'),
+      pathname,
+    );
   }
 
   async get(id: number) {

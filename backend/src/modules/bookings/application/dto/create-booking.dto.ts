@@ -1,4 +1,6 @@
 export class CreateBookingDTO {
+  roomingListId: number;
+
   hotelId: number;
 
   eventId: number;

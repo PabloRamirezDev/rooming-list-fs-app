@@ -3,16 +3,29 @@ import { IBookingsRepository } from '../../domain/interfaces/bookings.repository
 import { BOOKINGS_REPOSITORY } from '../../bookings.constants';
 import { Booking } from '../../domain/entities/booking.entity';
 import { CreateBookingDTO } from '../dto/create-booking.dto';
+import { ListBookingsDTO } from '../dto/list-bookings.dto';
+import { PaginationUtil } from 'src/shared/pagination/pagination.util';
+import { PaginatedResult } from 'src/shared/pagination/paginated-result.type';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class BookingsService {
   constructor(
     @Inject(BOOKINGS_REPOSITORY)
     private readonly repository: IBookingsRepository,
+    private readonly configService: ConfigService,
   ) {}
 
-  async getAll() {
-    return this.repository.findAll();
+  async getAll(
+    dto: ListBookingsDTO,
+    pathname?: string,
+  ): Promise<PaginatedResult<Booking>> {
+    return PaginationUtil.addPagination(
+      (pagination) => this.repository.findAllAndCount(pagination),
+      dto,
+      this.configService.get('BASE_URL'),
+      pathname,
+    );
   }
 
   async get(id: number) {
