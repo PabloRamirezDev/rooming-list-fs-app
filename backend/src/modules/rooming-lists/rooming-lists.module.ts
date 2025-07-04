@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoomingListEntity } from './infrastructure/typeorm/rooming-list.entity';
 import { ROOMING_LISTS_REPOSITORY } from './rooming-lists.constants';
@@ -6,9 +6,14 @@ import { RoomingListsRepository } from './infrastructure/repositories/rooming-li
 import { RoomingListsService } from './application/services/rooming-lists.service';
 import { RoomingListsController } from './rooming-lists.controller';
 import { ConfigModule } from '@nestjs/config';
+import { RoomingListBookingsModule } from '../rooming-list-bookings/rooming-list-bookings.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([RoomingListEntity]), ConfigModule],
+  imports: [
+    TypeOrmModule.forFeature([RoomingListEntity]),
+    ConfigModule,
+    forwardRef(() => RoomingListBookingsModule),
+  ],
   providers: [
     {
       provide: ROOMING_LISTS_REPOSITORY,
