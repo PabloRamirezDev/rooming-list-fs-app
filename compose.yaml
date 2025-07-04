@@ -30,6 +30,8 @@ services:
     env_file: ./frontend/.env
     ports:
       - "${FE_PORT}:${FE_PORT}"
+    volumes:
+      - ./frontend/app:/app/app
 
 volumes:
   pgdata:
