@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { RoomingListBookingEntity } from 'src/modules/rooming-list-bookings/infrastructure/typeorm/rooming-list-booking.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 
 @Entity({ name: 'booking' })
 export class BookingEntity {
@@ -22,4 +23,7 @@ export class BookingEntity {
 
   @Column('date')
   checkOutDate: Date;
+
+  @OneToOne(() => RoomingListBookingEntity, (rlb) => rlb.booking)
+  roomingListBooking: RoomingListBookingEntity;
 }

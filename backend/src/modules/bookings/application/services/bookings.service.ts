@@ -3,6 +3,9 @@ import { IBookingsRepository } from '../../domain/interfaces/bookings.repository
 import { BOOKINGS_REPOSITORY } from '../../bookings.constants';
 import { Booking } from '../../domain/entities/booking.entity';
 import { CreateBookingDTO } from '../dto/create-booking.dto';
+import { RoomingListBookingsService } from '../../../rooming-list-bookings/application/services/rooming-list-bookings.service';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { ListBookingsDTO } from '../dto/list-bookings.dto';
 import { PaginationUtil } from 'src/shared/pagination/pagination.util';
 import { PaginatedResult } from 'src/shared/pagination/paginated-result.type';
@@ -13,6 +16,9 @@ export class BookingsService {
   constructor(
     @Inject(BOOKINGS_REPOSITORY)
     private readonly repository: IBookingsRepository,
+    private readonly roomingListBookingsService: RoomingListBookingsService,
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
     private readonly configService: ConfigService,
   ) {}
 
@@ -42,7 +48,16 @@ export class BookingsService {
       dto.checkOutDate,
     );
 
-    return this.repository.create(booking);
+    return this.dataSource.transaction(async () => {
+      const createResult = await this.repository.create(booking);
+
+      await this.roomingListBookingsService.create({
+        bookingId: createResult.bookingId,
+        roomingListId: dto.roomingListId,
+      });
+
+      return createResult;
+    });
   }
 
   async delete(id: number) {
