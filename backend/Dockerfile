@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose port
-EXPOSE ${BE_PORT}
+EXPOSE ${PORT}
 
 ENV NODE_ENV=${NODE_ENV} PORT=${PORT} DB_URL=${DB_URL} BASE_URL=${BASE_URL}
 
