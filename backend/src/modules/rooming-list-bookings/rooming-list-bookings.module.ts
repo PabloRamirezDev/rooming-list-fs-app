@@ -7,6 +7,7 @@ import { RoomingListBookingsRepository } from './infrastructure/repositories/roo
 import { RoomingListsModule } from '../rooming-lists/rooming-lists.module';
 import { BookingsModule } from '../bookings/bookings.module';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from 'src/shared/database/database.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
     forwardRef(() => BookingsModule),
     TypeOrmModule.forFeature([RoomingListBookingEntity]),
     ConfigModule,
+    DatabaseModule,
   ],
   providers: [
     RoomingListBookingsService,

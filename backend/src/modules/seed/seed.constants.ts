@@ -1,0 +1,1 @@
+export const MOCK_DATA_PROVIDER = Symbol('MOCK_DATA_PROVIDER');

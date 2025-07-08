@@ -13,6 +13,7 @@ import { BookingsService } from '../../../bookings/application/services/bookings
 import { ListRoomingListBookingsDTO } from '../dto/list-rooming-list-bookings.dto';
 import { PaginationUtil } from 'src/shared/pagination/pagination.util';
 import { ConfigService } from '@nestjs/config';
+import { BulkCreateRoomingListBookingDTO } from '../dto/bulk-create-rooming-list-booking.dto';
 
 @Injectable()
 export class RoomingListBookingsService {
@@ -36,6 +37,10 @@ export class RoomingListBookingsService {
     const roomingListBooking = new RoomingListBooking(roomingList, booking);
 
     return this.roomingListBookingsRepository.create(roomingListBooking);
+  }
+
+  async bulkCreate(data: BulkCreateRoomingListBookingDTO) {
+    this.roomingListBookingsRepository.bulkCreate(data.entries);
   }
 
   getBookingsByRoomingListId(

@@ -4,11 +4,13 @@ import { transformInteger } from 'src/shared/transformers/transform-integer';
 import { RoomingListStatus } from '../../domain/enums/rooming-list-status.enum';
 import { RoomingListSortField } from '../../domain/enums/rooming-list-sort-field.enum';
 import { SortDirection } from '../../../../shared/sort/sort-direction.enum';
+import { transformArray } from 'src/shared/transformers/transform-array';
 
 export class ListRoomingListsDTO implements IPagination {
   search?: string;
 
-  status?: RoomingListStatus;
+  @Transform(transformArray)
+  status?: RoomingListStatus[];
 
   sortField?: RoomingListSortField;
 

@@ -7,6 +7,7 @@ import { Booking } from '../../../bookings/domain/entities/booking.entity';
 import { RoomingList } from '../../../rooming-lists/domain/entities/rooming-list.entity';
 import { RoomingListBooking } from '../../domain/entities/rooming-list-booking.entity';
 import { IPagination } from 'src/shared/pagination/pagination.interface';
+import { SequenceService } from 'src/shared/database/sequence.service';
 
 @Injectable()
 export class RoomingListBookingsRepository
@@ -15,12 +16,38 @@ export class RoomingListBookingsRepository
   constructor(
     @InjectRepository(RoomingListBookingEntity)
     private readonly roomingListBookingsRepo: Repository<RoomingListBookingEntity>,
+    private readonly sequenceService: SequenceService,
   ) {}
 
   async create(
-    roomingListBooking: RoomingListBookingEntity,
+    roomingListBooking: Partial<RoomingListBookingEntity>,
   ): Promise<RoomingListBooking> {
-    return this.roomingListBookingsRepo.save(roomingListBooking);
+    const newRoomingListBooking =
+      this.roomingListBookingsRepo.create(roomingListBooking);
+
+    const entity = (
+      await this.roomingListBookingsRepo
+        .createQueryBuilder()
+        .insert()
+        .into(RoomingListBookingEntity)
+        .values(newRoomingListBooking)
+        .returning('*')
+        .execute()
+    ).raw[0] as RoomingListBooking;
+
+    return entity;
+  }
+
+  async bulkCreate(
+    data: Partial<{
+      roomingListId: number;
+      bookingId: number;
+    }>[],
+  ): Promise<void> {
+    const entities = this.roomingListBookingsRepo.create(data);
+    await this.roomingListBookingsRepo.save(entities);
+
+    await this.sequenceService.updateSequence('rooming_list_bookings', 'id');
   }
 
   async findAndCountBookingsByRoomingListId(

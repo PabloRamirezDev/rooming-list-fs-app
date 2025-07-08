@@ -7,12 +7,14 @@ import { RoomingListsService } from './application/services/rooming-lists.servic
 import { RoomingListsController } from './rooming-lists.controller';
 import { ConfigModule } from '@nestjs/config';
 import { RoomingListBookingsModule } from '../rooming-list-bookings/rooming-list-bookings.module';
+import { DatabaseModule } from 'src/shared/database/database.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([RoomingListEntity]),
     ConfigModule,
     forwardRef(() => RoomingListBookingsModule),
+    DatabaseModule,
   ],
   providers: [
     {

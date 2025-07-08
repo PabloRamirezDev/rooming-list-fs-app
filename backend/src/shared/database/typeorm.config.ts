@@ -7,5 +7,5 @@ export const typeOrmConfig = async (
   type: 'postgres',
   url: configService.get('DB_URL'),
   entities: [__dirname + '/../../modules/**/*.entity{.ts,.js}'],
-  synchronize: configService.get('NODE_ENV') === 'development',
+  synchronize: false,
 });

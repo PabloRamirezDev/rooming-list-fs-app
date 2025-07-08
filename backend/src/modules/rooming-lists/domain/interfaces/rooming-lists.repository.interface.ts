@@ -8,6 +8,8 @@ export interface IRoomingListsRepository {
     options: Required<IPagination> & RoomingListSearch & RoomingListSort,
   ): Promise<[RoomingList[], number]>;
   findById(id: number): Promise<RoomingList | null>;
-  create(booking: Partial<RoomingList>): Promise<RoomingList>;
+  create(roomingList: Partial<RoomingList>): Promise<RoomingList>;
+  bulkCreate(roomingLists: Partial<RoomingList>[]): Promise<void>;
   delete(id: number): Promise<void>;
+  deleteAll(): Promise<void>;
 }
