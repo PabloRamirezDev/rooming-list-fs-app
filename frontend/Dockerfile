@@ -16,7 +16,7 @@ COPY . .
 # Expose port
 EXPOSE ${PORT}
 
-ENV NODE_ENV=${NODE_ENV} PORT=${PORT}
+ENV NODE_ENV=${NODE_ENV} PORT=${PORT} API_BASE_URL=${API_BASE_URL} API_TOKEN=${API_TOKEN}
 
 # Default command
 CMD ["npm", "run", "dev"]
