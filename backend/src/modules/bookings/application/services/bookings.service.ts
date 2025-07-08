@@ -4,8 +4,6 @@ import { BOOKINGS_REPOSITORY } from '../../bookings.constants';
 import { Booking } from '../../domain/entities/booking.entity';
 import { CreateBookingDTO } from '../dto/create-booking.dto';
 import { RoomingListBookingsService } from '../../../rooming-list-bookings/application/services/rooming-list-bookings.service';
-import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
 import { ListBookingsDTO } from '../dto/list-bookings.dto';
 import { PaginationUtil } from 'src/shared/pagination/pagination.util';
 import { PaginatedResult } from 'src/shared/pagination/paginated-result.type';
@@ -27,9 +25,25 @@ export class BookingsService {
   async getAll(
     dto: ListBookingsDTO,
     pathname?: string,
-  ): Promise<PaginatedResult<Booking>> {
+  ): Promise<PaginatedResult<Booking & { roomingListId: number }>> {
     return PaginationUtil.addPagination(
-      (pagination) => this.repository.findAllAndCount(pagination),
+      async (pagination) => {
+        const [bookings, count] =
+          await this.repository.findAllAndCount(pagination);
+
+        const result = await Promise.all(
+          bookings.map(async (booking) => {
+            const roomingList =
+              await this.roomingListBookingsService.getRoomingListByBookingId(
+                booking.bookingId,
+              );
+
+            return { ...booking, roomingListId: roomingList?.roomingListId };
+          }),
+        );
+
+        return [result, count];
+      },
       dto,
       this.configService.get('BASE_URL'),
       pathname,
