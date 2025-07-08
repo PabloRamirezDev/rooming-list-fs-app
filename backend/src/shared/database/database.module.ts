@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { typeOrmConfig } from './typeorm.config';
+import { TransactionService } from './transaction.service';
 import { SequenceService } from './sequence.service';
 
 @Module({
@@ -13,7 +14,7 @@ import { SequenceService } from './sequence.service';
       useFactory: typeOrmConfig,
     }),
   ],
-  providers: [SequenceService],
-  exports: [SequenceService],
+  providers: [TransactionService, SequenceService],
+  exports: [TransactionService, SequenceService],
 })
 export class DatabaseModule {}

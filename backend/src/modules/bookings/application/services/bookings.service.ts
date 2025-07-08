@@ -10,6 +10,7 @@ import { ListBookingsDTO } from '../dto/list-bookings.dto';
 import { PaginationUtil } from 'src/shared/pagination/pagination.util';
 import { PaginatedResult } from 'src/shared/pagination/paginated-result.type';
 import { ConfigService } from '@nestjs/config';
+import { TransactionService } from 'src/shared/database/transaction.service';
 
 @Injectable()
 export class BookingsService {
@@ -17,8 +18,7 @@ export class BookingsService {
     @Inject(BOOKINGS_REPOSITORY)
     private readonly repository: IBookingsRepository,
     private readonly roomingListBookingsService: RoomingListBookingsService,
-    @InjectDataSource()
-    private readonly dataSource: DataSource,
+    private readonly transactionService: TransactionService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -48,7 +48,7 @@ export class BookingsService {
       dto.checkOutDate,
     );
 
-    return this.dataSource.transaction(async () => {
+    return this.transactionService.withTransaction(async () => {
       const createResult = await this.repository.create(booking);
 
       await this.roomingListBookingsService.create({
