@@ -63,7 +63,7 @@ GET /rooming-lists
 Authorization: Bearer [TOKEN]
 ```
 
-```json
+```jsonc
 {
 	"count": 7,
 	"total": 7,
@@ -121,7 +121,7 @@ GET /rooming-lists/2/bookings
 Authorization: Bearer [TOKEN]
 ```
 
-```json
+```jsonc
 {
 	"count": 4,
 	"total": 4,
