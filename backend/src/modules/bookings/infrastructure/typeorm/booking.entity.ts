@@ -1,9 +1,9 @@
 import { RoomingListBookingEntity } from 'src/modules/rooming-list-bookings/infrastructure/typeorm/rooming-list-booking.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, Column, OneToOne, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'booking' })
 export class BookingEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn({ type: 'int' })
   bookingId: number;
 
   @Column()

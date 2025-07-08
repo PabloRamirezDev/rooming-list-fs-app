@@ -5,13 +5,13 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { BookingEntity } from 'src/modules/bookings/infrastructure/typeorm/booking.entity';
 
 @Entity({ name: 'rooming_list_bookings' })
 export class RoomingListBookingEntity {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryColumn({ type: 'int' })
   id: number;
 
   @ManyToOne(() => RoomingListEntity, (rl) => rl.roomingListBookings, {
