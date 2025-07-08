@@ -1,5 +1,5 @@
-export const getMonthShort = (date: Date) => {
-  switch (date.getMonth()) {
+export const getMonthShort = (date: Date | null) => {
+  switch (date?.getMonth()) {
     case 0:
       return "Jan";
     case 1:
@@ -23,7 +23,8 @@ export const getMonthShort = (date: Date) => {
     case 10:
       return "Nov";
     case 11:
-    default:
       return "Dec";
+    default:
+      return null;
   }
 };

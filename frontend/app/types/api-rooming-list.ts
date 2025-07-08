@@ -1,9 +1,9 @@
 export type ApiRoomingList = {
   roomingListId: number;
   rfpName: string;
-  cutOffDate: Date;
+  cutOffDate: string;
   agreementType: string;
-  startDate: Date;
-  endDate: Date;
+  startDate?: string;
+  endDate?: string;
   bookingCount: number;
 };
