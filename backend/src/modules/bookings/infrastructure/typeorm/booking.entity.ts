@@ -1,4 +1,4 @@
-import { RoomingListBookingEntity } from 'src/modules/rooming-list-bookings/infrastructure/typeorm/rooming-list-booking.entity';
+import { RoomingListBookingEntity } from '../../../../modules/rooming-list-bookings/infrastructure/typeorm/rooming-list-booking.entity';
 import { Entity, Column, OneToOne, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'booking' })

@@ -5,10 +5,10 @@ import { Booking } from '../../domain/entities/booking.entity';
 import { CreateBookingDTO } from '../dto/create-booking.dto';
 import { RoomingListBookingsService } from '../../../rooming-list-bookings/application/services/rooming-list-bookings.service';
 import { ListBookingsDTO } from '../dto/list-bookings.dto';
-import { PaginationUtil } from 'src/shared/pagination/pagination.util';
-import { PaginatedResult } from 'src/shared/pagination/paginated-result.type';
+import { PaginationUtil } from '../../../../shared/pagination/pagination.util';
+import { PaginatedResult } from '../../../../shared/pagination/paginated-result.type';
 import { ConfigService } from '@nestjs/config';
-import { TransactionService } from 'src/shared/database/transaction.service';
+import { TransactionService } from '../../../../shared/database/transaction.service';
 import { BulkCreateBookingDTO } from '../dto/bulk-create-booking.dto';
 import { BookingFactory } from '../../domain/factories/booking.factory';
 

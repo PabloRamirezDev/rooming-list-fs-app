@@ -1,4 +1,4 @@
-import { RoomingListEntity } from 'src/modules/rooming-lists/infrastructure/typeorm/rooming-list.entity';
+import { RoomingListEntity } from '../../../../modules/rooming-lists/infrastructure/typeorm/rooming-list.entity';
 import {
   Column,
   Entity,
@@ -7,7 +7,7 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { BookingEntity } from 'src/modules/bookings/infrastructure/typeorm/booking.entity';
+import { BookingEntity } from '../../../../modules/bookings/infrastructure/typeorm/booking.entity';
 
 @Entity({ name: 'rooming_list_bookings' })
 export class RoomingListBookingEntity {

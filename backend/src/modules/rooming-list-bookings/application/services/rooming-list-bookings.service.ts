@@ -11,7 +11,7 @@ import { RoomingListBooking } from '../../domain/entities/rooming-list-booking.e
 import { RoomingListsService } from '../../../rooming-lists/application/services/rooming-lists.service';
 import { BookingsService } from '../../../bookings/application/services/bookings.service';
 import { ListRoomingListBookingsDTO } from '../dto/list-rooming-list-bookings.dto';
-import { PaginationUtil } from 'src/shared/pagination/pagination.util';
+import { PaginationUtil } from '../../../../shared/pagination/pagination.util';
 import { ConfigService } from '@nestjs/config';
 import { BulkCreateRoomingListBookingDTO } from '../dto/bulk-create-rooming-list-booking.dto';
 

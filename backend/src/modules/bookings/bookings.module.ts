@@ -7,7 +7,7 @@ import { BookingEntity } from './infrastructure/typeorm/booking.entity';
 import { BookingsController } from './bookings.controller';
 import { RoomingListBookingsModule } from '../rooming-list-bookings/rooming-list-bookings.module';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseModule } from 'src/shared/database/database.module';
+import { DatabaseModule } from '../../shared/database/database.module';
 
 @Module({
   imports: [

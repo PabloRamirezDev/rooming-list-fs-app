@@ -6,7 +6,7 @@ import { RoomingListEntity } from '../typeorm/rooming-list.entity';
 import { IPagination } from '../../../../shared/pagination/pagination.interface';
 import { RoomingListSearch } from '../../domain/types/rooming-list-search.type';
 import { RoomingListSort } from '../../domain/types/rooming-list-sort.type';
-import { SequenceService } from 'src/shared/database/sequence.service';
+import { SequenceService } from '../../../../shared/database/sequence.service';
 
 @Injectable()
 export class RoomingListsRepository implements IRoomingListsRepository {

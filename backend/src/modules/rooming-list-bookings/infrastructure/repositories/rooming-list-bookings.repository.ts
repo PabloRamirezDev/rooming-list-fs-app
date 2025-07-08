@@ -6,8 +6,8 @@ import { RoomingListBookingEntity } from '../typeorm/rooming-list-booking.entity
 import { Booking } from '../../../bookings/domain/entities/booking.entity';
 import { RoomingList } from '../../../rooming-lists/domain/entities/rooming-list.entity';
 import { RoomingListBooking } from '../../domain/entities/rooming-list-booking.entity';
-import { IPagination } from 'src/shared/pagination/pagination.interface';
-import { SequenceService } from 'src/shared/database/sequence.service';
+import { IPagination } from '../../../../shared/pagination/pagination.interface';
+import { SequenceService } from '../../../../shared/database/sequence.service';
 
 @Injectable()
 export class RoomingListBookingsRepository

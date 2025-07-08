@@ -6,7 +6,7 @@ import { SeedService } from './application/services/seed.service';
 import { BookingsModule } from '../bookings/bookings.module';
 import { RoomingListsModule } from '../rooming-lists/rooming-lists.module';
 import { RoomingListBookingsModule } from '../rooming-list-bookings/rooming-list-bookings.module';
-import { DatabaseModule } from 'src/shared/database/database.module';
+import { DatabaseModule } from '../../shared/database/database.module';
 
 @Module({
   imports: [
