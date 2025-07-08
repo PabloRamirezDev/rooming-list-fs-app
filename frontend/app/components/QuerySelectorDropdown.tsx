@@ -4,7 +4,7 @@ interface Props {
   children?: ReactNode;
 }
 
-export const FiltersDropdown = (props: Props) => {
+export const QuerySelectorDropdown = (props: Props) => {
   const { children } = props;
 
   return (

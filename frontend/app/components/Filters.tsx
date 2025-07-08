@@ -1,53 +1,42 @@
 "use client";
 
-import { ReactNode, useState } from "react";
 import { SlidersIcon } from "../icons/SlidersIcon";
-import { FiltersDropdown } from "./FiltersDropdown";
+import { CheckboxGroup } from "./CheckboxGroup";
+import { QuerySelector } from "./QuerySelector";
+import { useEvents } from "../context/EventsContext";
 
-interface Props {
-  children?: ReactNode;
-}
+export const Filters = () => {
+  const { filters, updateFilter, revalidate } = useEvents();
 
-export const Filters = (props: Props) => {
-  const { children } = props;
-
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    console.log("open");
-    setOpen(true);
+  const handleSaveFilters = () => {
+    revalidate();
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const generateHandleChange =
+    (filterId: string) => (optionId: string, value: boolean) => {
+      updateFilter(filterId, optionId, value);
+    };
 
   return (
-    <>
-      <div
-        className="data-[open=false]:hidden fixed inset-0 z-100"
-        onClick={handleClose}
-        data-open={open}
-      />
-      <div className="group relative" data-open={open}>
-        <button
-          onClick={handleOpen}
-          className="w-27.5 h-full rounded-lg bg-white border border-ui-secondary focus:border-primary text-sm font-medium flex flex-row items-center justify-center gap-3 text-text-primary"
-        >
+    <QuerySelector
+      label={
+        <>
           <span className="w-10.5">Filters</span>
           <span className="">
             <SlidersIcon />
           </span>
-        </button>
-        {open && (
-          <FiltersDropdown>
-            {children}
-            <button className="bg-primary rounded text-white text-sm leading-4 font-semibold py-2">
-              Save
-            </button>
-          </FiltersDropdown>
-        )}
-      </div>
-    </>
+        </>
+      }
+      onSave={handleSaveFilters}
+    >
+      {filters.map((filter) => (
+        <CheckboxGroup
+          key={filter.id}
+          label={filter.label}
+          options={filter.options}
+          onChange={generateHandleChange(filter.id)}
+        />
+      ))}
+    </QuerySelector>
   );
 };
