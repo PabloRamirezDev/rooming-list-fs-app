@@ -1,5 +1,5 @@
 export enum RoomingListStatus {
-  active = 'Active',
-  closed = 'Closed',
-  cancelled = 'Cancelled',
+  received = 'received',
+  completed = 'completed',
+  archived = 'archived',
 }
