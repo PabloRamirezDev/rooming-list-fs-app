@@ -1,5 +1,6 @@
 import { getAllApiItems } from "@/app/lib/get-all-api-items";
 import { ApiEvent } from "../../types/api-event";
+import { AgreementType } from "@/app/enums/agreement-type";
 
 type RoomingList = {
   roomingListId: number;
@@ -8,7 +9,7 @@ type RoomingList = {
   rfpName: string;
   cutOffDate: string;
   status: string;
-  agreementType: string;
+  agreementType: AgreementType;
 };
 
 type Booking = {
@@ -61,6 +62,7 @@ export const getEvents = async (params: Params): Promise<ApiEvent[]> => {
       ...currLists,
       {
         ...item,
+        agreementType: formatAgreementType(item.agreementType)!,
         bookingCount: bookings.length,
         startDate: startDate?.toDateString(),
         endDate: endDate?.toDateString(),
@@ -172,4 +174,17 @@ const formatStatus = (status?: string | null) => {
       }
     })
     .filter((item) => item);
+};
+
+const formatAgreementType = (type: AgreementType) => {
+  switch (type) {
+    case AgreementType.artist:
+      return "Artist";
+    case AgreementType.leisure:
+      return "Leisure";
+    case AgreementType.staff:
+      return "Staff";
+    default:
+      return null;
+  }
 };
